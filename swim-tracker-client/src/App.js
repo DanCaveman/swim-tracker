@@ -4,8 +4,8 @@ import EventList from './Components/EventList';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <EventList className="content" />
+      <div className="App ui container">
+          <EventList className="content" />
       </div>
     );
   }

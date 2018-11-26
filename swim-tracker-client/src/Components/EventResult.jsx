@@ -23,13 +23,15 @@ class EventResult extends React.Component
         ? "save"
         : "edit";
         return (
-            <div className="card">
-                <div>event: 
-                    {this.getValueDom(this.props.eventResult.distance)} 
-                    {this.getValueDom(this.props.eventResult.stroke)}
+            <div className="ui card">
+                <div className="content">
+                    <div >event: 
+                        {this.getValueDom(this.props.eventResult.distance)} 
+                        {this.getValueDom(this.props.eventResult.stroke)}
+                    </div>
+                    <div >time: {this.getValueDom(this.props.eventResult.time)}</div>
+                    <div>date: {this.getValueDom(this.props.eventResult.eventDate)}</div>
                 </div>
-                <div>time: {this.getValueDom(this.props.eventResult.time)}</div>
-                <div>date: {this.getValueDom(this.props.eventResult.eventDate)}</div>
                 <div className="extra content">
                     <div className="ui one buttons">
                         <div class="ui basic green button" onClick={this.toggleEdit}>{buttonText}</div>

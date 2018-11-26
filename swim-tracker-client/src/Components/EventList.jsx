@@ -2,7 +2,7 @@ import React from 'react';
 import EventResult from './EventResult';
 
 
-function getEvents(){
+function getEvents() {
     return [
         {distance: "25 yards", stroke: "butterfly", time: "0:25.6", eventDate: "11/1/2018"},
         {distance: "25 yards", stroke: "freestyle", time: "0:22.1", eventDate: "11/12/2018"},
@@ -12,15 +12,19 @@ function getEvents(){
 
 };
 
-const eventResultCards = Object.values(getEvents()).map(event => 
-    <EventResult eventResult={event} />
+const eventResultCards = Object.values(getEvents()).map(event =>
+    <div className="sixteen wide column ">
+        <EventResult eventResult={event}/>
+    </div>
 )
 
 
 const EventList = (props) => {
     return (
-        <div className="ui cards">            
-            {eventResultCards}
+        <div className="ui cards">
+            <div className="ui grid">
+                {eventResultCards}
+            </div>
         </div>);
 };
 

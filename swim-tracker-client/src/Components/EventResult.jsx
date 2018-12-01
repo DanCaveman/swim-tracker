@@ -4,17 +4,44 @@ class EventResult extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = {isEditMode: false};
+        this.state = {
+            onSaveSwimEvent: props.onSaveSwimEvent,
+            isEditMode: props.isEditMode,
+            eventResult: props.eventResult
+        };
     }
-    getValueDom = (domValue) =>{
+    setEventValue = (event)=>{
+        var newEvent = Object.assign({}, this.state.eventResult);
+        if(event.target.name === "distance"){
+            newEvent.distance = event.target.value
+        }
+        else if(event.target.name === "stroke"){
+            newEvent.stroke = event.target.value;
+        }
+        else if(event.target.name === "time"){
+            newEvent.time = event.target.value;
+        }
+        else if(event.target.name === "eventDate"){
+            newEvent.eventDate = event.target.value;
+        }
+        this.setState({eventResult: newEvent });
+    }
+    getValueDom = (domValue, inputName) =>{
         if(this.state.isEditMode)
         {
-            return (<input className="ui input" value={domValue} />);
+            return (<input 
+                name={inputName} 
+                className="ui input" 
+                value={domValue} 
+                onChange={this.setEventValue} />);
         }
 
         return <span> {domValue} </span>;
     };
     toggleEdit = () => {
+        if(this.state.isEditMode){
+            this.state.onSaveSwimEvent(this.state.eventResult);
+        }        
         var newEditMode = !this.state.isEditMode;
         this.setState({isEditMode: newEditMode});
     };
@@ -26,15 +53,15 @@ class EventResult extends React.Component
             <div className="ui card">
                 <div className="content">
                     <div >event: 
-                        {this.getValueDom(this.props.eventResult.distance)} 
-                        {this.getValueDom(this.props.eventResult.stroke)}
+                        {this.getValueDom(this.state.eventResult.distance,"distance")} 
+                        {this.getValueDom(this.state.eventResult.stroke, "stroke")}
                     </div>
-                    <div >time: {this.getValueDom(this.props.eventResult.time)}</div>
-                    <div>date: {this.getValueDom(this.props.eventResult.eventDate)}</div>
+                    <div >time: {this.getValueDom(this.state.eventResult.time, "time")}</div>
+                    <div>date: {this.getValueDom(this.state.eventResult.eventDate, "eventDate")}</div>
                 </div>
                 <div className="extra content">
                     <div className="ui one buttons">
-                        <div class="ui basic green button" onClick={this.toggleEdit}>{buttonText}</div>
+                        <div className="ui basic green button" onClick={this.toggleEdit}>{buttonText}</div>
                     </div>
 
                 </div>

@@ -1,31 +1,48 @@
 import React from 'react';
 import EventResult from './EventResult';
+import '../style/Edit.css';
+import swimEventApi from '../api/swim-event-api';
 
 
-function getEvents() {
-    return [
-        {distance: "25 yards", stroke: "butterfly", time: "0:25.6", eventDate: "11/1/2018"},
-        {distance: "25 yards", stroke: "freestyle", time: "0:22.1", eventDate: "11/12/2018"},
-        {distance: "25 yards", stroke: "backstroke", time: "0:23.2", eventDate: "11/6/2018"},
-        {distance: "25 yards", stroke: "breaststroke", time: "0:28.5", eventDate: "9/1/2018"}
-    ]
+class EventList extends React.Component {
+    state = {
+        swimEvents: swimEventApi.getSwimEvents()
+    };
+    
+    
+    eventResultCards = () =>{
+        var eventDisplay =                            
+            Object.values(this.state.swimEvents.map(event =>
+            <div  key={event.id} className="ui row">
+                <EventResult onSaveSwimEvent={this.handleSaveSwimEvent} isEditMode={event.id == null} eventResult={event}/>
+            </div>)
+            );
 
-};
-
-const eventResultCards = Object.values(getEvents()).map(event =>
-    <div className="sixteen wide column ">
-        <EventResult eventResult={event}/>
-    </div>
-)
-
-
-const EventList = (props) => {
-    return (
-        <div className="ui cards">
-            <div className="ui grid">
-                {eventResultCards}
+        return(
+            <div className="ui one column grid cards">
+                {eventDisplay}
             </div>
-        </div>);
+        );
+    };
+    handleAddButtonClick = (evt) =>{
+        var newEventArray = [{}].concat(this.state.swimEvents);
+        this.setState({swimEvents: newEventArray});
+    };  
+
+    handleSaveSwimEvent = (swimEvent) =>{
+        swimEventApi.addSwimEvent(swimEvent);
+        this.setState({swimEvents: swimEventApi.getSwimEvents()});
+    }
+    render(){
+        return (
+            <div className="ui segment"  >
+                <div className="ui segment" >
+                    <i className="link big plus circle icon" onClick={this.handleAddButtonClick} />
+                </div>
+                
+                    {this.eventResultCards()}
+            </div>);
+    };
 };
 
 export default EventList;

@@ -15,7 +15,7 @@ class swimEventApi {
         return this.swimEvents;
     }
 
-    addSwimEvent = (swimEvent) => {
+    saveSwimEvent = (swimEvent) => {
         if(swimEvent.id){
             var existingIndex = this.swimEvents.findIndex(se => se.id === swimEvent.id);
             this.swimEvents[existingIndex] = swimEvent;

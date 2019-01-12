@@ -1,4 +1,5 @@
 import React from 'react';
+import MeetSelector from './MeetSelector'
 
 class EventResult extends React.Component
 {
@@ -29,14 +30,17 @@ class EventResult extends React.Component
     getValueDom = (domValue, inputName) =>{
         if(this.state.isEditMode)
         {
-            return (<input 
-                name={inputName} 
-                className="ui input" 
-                value={domValue} 
-                onChange={this.setEventValue} />);
+            return (
+            <div className="ui input">
+                <input 
+                    name={inputName} 
+                    className="ui input" 
+                    value={domValue} 
+                    onChange={this.setEventValue} />
+            </div>);
         }
 
-        return <span> {domValue} </span>;
+        return <span > {domValue} </span>;
     };
     toggleEdit = () => {
         if(this.state.isEditMode){
@@ -51,13 +55,20 @@ class EventResult extends React.Component
         : "edit";
         return (
             <div className="ui card">
-                <div className="content">
-                    <div >event: 
+                <div className="ui content">
+                    event: 
                         {this.getValueDom(this.state.eventResult.distance,"distance")} 
                         {this.getValueDom(this.state.eventResult.stroke, "stroke")}
+                    
+                    <div>time: 
+                        {this.getValueDom(this.state.eventResult.time, "time")}
                     </div>
-                    <div >time: {this.getValueDom(this.state.eventResult.time, "time")}</div>
-                    <div>date: {this.getValueDom(this.state.eventResult.eventDate, "eventDate")}</div>
+                    <div>
+                        <MeetSelector selectedMeetId={this.state.eventResult.meetId}  meetList={this.props.meetList} />                        
+                    </div>
+                    <div >date:
+                        {this.getValueDom(this.state.eventResult.eventDate, "eventDate")}
+                    </div>
                 </div>
                 <div className="extra content">
                     <div className="ui one buttons">

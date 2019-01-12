@@ -6,10 +6,18 @@ import swimEventApi from '../api/swim-event-api';
 
 class EventList extends React.Component {
     state = {
-        swimEvents: swimEventApi.getSwimEvents()
+        swimEvents: []
     };
-    
-    
+    updateSwimEvents = (newSwimEvents) => {
+        console.log("updated events")
+        console.log(newSwimEvents);
+        this.setState({swimEvents: newSwimEvents});
+    };
+    componentDidMount = () => {
+        console.log("did mount");
+        swimEventApi.getSwimEvents(this.updateSwimEvents);
+    };
+
     eventResultCards = () =>{
         var eventDisplay =                            
             Object.values(this.state.swimEvents.map(event =>

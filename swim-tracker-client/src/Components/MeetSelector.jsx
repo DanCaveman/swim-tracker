@@ -21,10 +21,15 @@ class MeetSelector extends React.Component {
         );
         return meetOptions;
     }
+
+    handleMeetChange = (event) => {        
+        console.log(event.target.value);
+        this.props.onMeetSelected(event.target.value);
+    }
     render = () => {
         var meets = this.getMeetListOptions();
         return (            
-            <select className="ui selection dropdown" value={this.props.selectedMeetId}>
+            <select name="meetSelector" className="ui selection dropdown" value={this.props.selectedMeetId} onChange={this.handleMeetChange}>
                 {meets}
             </select>
         );

@@ -11,6 +11,11 @@ class EventResult extends React.Component
             eventResult: props.eventResult
         };
     }
+    setEventMeet = (meetId) =>{
+        var newEvent = Object.assign({}, this.state.eventResult);
+        newEvent.meetId = meetId;
+        this.setState({eventResult: newEvent});
+    }
     setEventValue = (event)=>{
         var newEvent = Object.assign({}, this.state.eventResult);
         if(event.target.name === "distance"){
@@ -49,6 +54,7 @@ class EventResult extends React.Component
         var newEditMode = !this.state.isEditMode;
         this.setState({isEditMode: newEditMode});
     };
+
     render(){
         var buttonText = this.state.isEditMode 
         ? "save"
@@ -64,7 +70,7 @@ class EventResult extends React.Component
                         {this.getValueDom(this.state.eventResult.time, "time")}
                     </div>
                     <div>
-                        <MeetSelector selectedMeetId={this.state.eventResult.meetId}  meetList={this.props.meetList} />                        
+                        <MeetSelector onMeetSelected={this.setEventMeet} selectedMeetId={this.state.eventResult.meetId}  meetList={this.props.meetList} />                        
                     </div>
                     <div >date:
                         {this.getValueDom(this.state.eventResult.eventDate, "eventDate")}

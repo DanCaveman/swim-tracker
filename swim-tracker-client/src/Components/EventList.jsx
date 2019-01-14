@@ -39,7 +39,7 @@ class EventList extends React.Component {
 
     handleSaveSwimEvent = (swimEvent) =>{
         swimEventApi.saveSwimEvent(swimEvent);
-        this.setState({swimEvents: swimEventApi.getSwimEvents()});
+        this.setState({swimEvents: swimEventApi.getSwimEvents(this.updateSwimEvents)});
     }
     render(){
         return (

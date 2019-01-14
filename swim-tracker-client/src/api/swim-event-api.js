@@ -19,7 +19,7 @@ var meetList = [
 class swimEventApi {
     constructor(){
         this.swimEvents = savedEvents;
-        this.maxId = 4;
+        this.maxId = 7;
         this.meetList = meetList;
     }  
 
